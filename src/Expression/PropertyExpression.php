@@ -2,8 +2,9 @@
 
 declare(strict_types = 1);
 
+namespace Expression;
 
-final class PropertyAccessValue implements Node
+final class PropertyExpression implements ExpressionInterface
 {
     public string $path;
 
@@ -11,5 +12,4 @@ final class PropertyAccessValue implements Node
     {
         $this->path = $path;
     }
-
 }

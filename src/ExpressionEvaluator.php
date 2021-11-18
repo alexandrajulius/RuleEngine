@@ -2,11 +2,14 @@
 
 declare(strict_types = 1);
 
+use Evaluator\EvaluatorInterface;
+use Expression\ExpressionInterface;
+
 final class ExpressionEvaluator
 {
     //it's a service, not data, so private
     /**
-     * @var Evaluator[]
+     * @var EvaluatorInterface[]
      */
     private array $evaluators;
 
@@ -15,7 +18,7 @@ final class ExpressionEvaluator
         $this->evaluators = $evaluators;
     }
 
-    public function evaluate(Node $expression, array $data)
+    public function evaluate(ExpressionInterface $expression, array $data)
     {
         foreach ($this->evaluators as $evaluator) {
             if ($evaluator->supports($expression)) {

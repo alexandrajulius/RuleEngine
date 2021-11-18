@@ -2,8 +2,10 @@
 
 declare(strict_types = 1);
 
+namespace Expression;
 
-final class IntegerValue implements Node
+# LiteralExpression
+final class IntegerExpression implements ExpressionInterface
 {
     public int $value;
 

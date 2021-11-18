@@ -4,17 +4,16 @@ declare(strict_types = 1);
 
 namespace Evaluator;
 
-use Evaluator;
 use ExpressionEvaluator;
-use Node;
-use PropertyAccessValue;
+use Expression\ExpressionInterface;
+use Expression\PropertyExpression;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-final class PropertyAccessValueEvaluator implements Evaluator
+final class PropertyEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, Node $expression, array $data)
+    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
     {
-        assert($expression instanceof PropertyAccessValue);
+        assert($expression instanceof PropertyExpression);
 
         $propertyAccessor = PropertyAccess::createPropertyAccessorBuilder()
             ->enableExceptionOnInvalidIndex()
@@ -24,8 +23,8 @@ final class PropertyAccessValueEvaluator implements Evaluator
         return $propertyAccessor->getValue($data, $expression->path);
     }
 
-    public function supports(Node $expression): bool
+    public function supports(ExpressionInterface $expression): bool
     {
-        return $expression instanceof PropertyAccessValue;
+        return $expression instanceof PropertyExpression;
     }
 }
