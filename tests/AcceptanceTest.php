@@ -26,6 +26,7 @@ final class AcceptanceTest extends TestCase
             ]
         ];
         $expression = new IfExpression(
+            # IF one item has a shipping_flatrate return true
             new ClosureExpression(
                 function($data) {
                     foreach($data['cart']['items'] as $item) {
@@ -36,7 +37,9 @@ final class AcceptanceTest extends TestCase
                     return false;
                 }
             ),
+            # THEN the total shipping cost is 0
             new IntegerExpression(0),
+            # ELSE the total shipping cost is the sum of all item's shipping costs
             new SumExpression(
                 new ClosureExpression(
                     fn(array $data) => array_map(fn(array $item) => $item['shipping_cost'], $data['cart']['items'])
@@ -59,7 +62,6 @@ final class AcceptanceTest extends TestCase
             ]
         ];
         $expression = new IfExpression(
-            # if one item has a shipping_flatrate return true
             new ClosureExpression(
                 function($data) {
                     foreach($data['cart']['items'] as $item) {
@@ -70,9 +72,7 @@ final class AcceptanceTest extends TestCase
                     return false;
                 }
             ),
-            # if the above condition holds, the total shipping cost is 0
             new IntegerExpression(0),
-            # else the total shipping cost is the sum of all item's shipping costs
             new SumExpression(
                 new ClosureExpression(
                     /** @var list<string, double> [product_id => shipping_cost] */
@@ -83,7 +83,7 @@ final class AcceptanceTest extends TestCase
 
         self::assertEquals(30, $evaluator->evaluate($expression, $data));
     }
-    
+
     private function getEvaluator(): ExpressionEvaluator
     {
         return (new EvaluatorFactory())->createExpressionEvaluator();
