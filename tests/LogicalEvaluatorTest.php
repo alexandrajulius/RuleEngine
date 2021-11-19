@@ -18,8 +18,8 @@ final class LogicalEvaluatorTest extends TestCase
         # expression: [cart][items][product_id_1][shipping_flatrate] | [cart][items][product_id_2][shipping_flatrate]
         # data:       ['cart' =>
         #               ['items' => [
-        #                   'product_id_1' => ['shipping_flatrate' => true, 'shipping_cost' => 10.00],
-        #                   'product_id_2' => ['shipping_flatrate' => false, 'shipping_cost' => 20.00]
+        #                   'product_id_1' => ['shipping_flatrate' => true],
+        #                   'product_id_2' => ['shipping_flatrate' => false]
         #               ]]
         #           ];
 
@@ -36,7 +36,7 @@ final class LogicalEvaluatorTest extends TestCase
             ]]
         ];
 
-        $expression = $this->createArithmeticExpression(
+        $expression = $this->createLogicalExpression(
             '[cart][items][product_id_1][shipping_flatrate]',
             '|',
             '[cart][items][product_id_2][shipping_flatrate]');
@@ -46,7 +46,7 @@ final class LogicalEvaluatorTest extends TestCase
         self::assertEquals(true, $evaluator->evaluate($expression, $data));
     }
 
-    private function createArithmeticExpression(string $left, string $operator, string $right): LogicalExpression
+    private function createLogicalExpression(string $left, string $operator, string $right): LogicalExpression
     {
         return (new LogicalExpression(
             new PropertyExpression($left),

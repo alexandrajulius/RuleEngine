@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ArithmeticEvaluatorTest extends TestCase
 {
-    public function test_it_sums_up(): void
+    public function test_it_sums_up_two_numbers(): void
     {
         # INPUT:
         # expression: [cart][items][product_id_1][shipping_cost] + [cart][items][product_id_2][shipping_cost]

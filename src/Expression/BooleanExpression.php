@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Expression;
 
-# LiteralExpression
+# OneLiteralExpression / OneLiteralNode
 final class BooleanExpression implements ExpressionInterface
 {
     public bool $value;

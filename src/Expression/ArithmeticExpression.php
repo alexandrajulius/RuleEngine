@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Expression;
 
-# TwoLiteralExpression
+# TwoLiteralExpression / TwoLiteralNode
 final class ArithmeticExpression implements ExpressionInterface
 {
     public ExpressionInterface $left;
