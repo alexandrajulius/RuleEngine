@@ -74,13 +74,10 @@ final class ShippingCostsAcceptanceTest extends TestCase
         return (new EvaluatorFactory())->createExpressionEvaluator();
     }
 
-    /**
-     * If cart is not empty then calculate shipping costs
-     */
     private function createCompleteShippingCostsRule(): IfExpression
     {
         return new IfExpression(
-        #if not cart empty
+            # IF not cart empty
             new ClosureExpression(
                 function(array $data) {
                     if (!empty($data['cart']['items'])) {
@@ -89,9 +86,9 @@ final class ShippingCostsAcceptanceTest extends TestCase
                     return false;
                 }
             ),
-            # then return calculated shipping costs
+            # THEN return calculated shipping costs
             $this->calculateShippingCostsRule(),
-            # else return 0
+            # ELSE return 0
             new IntegerExpression(0),
         );
     }
@@ -99,7 +96,7 @@ final class ShippingCostsAcceptanceTest extends TestCase
     private function calculateShippingCostsRule(): IfExpression
     {
         return new IfExpression(
-        # IF one item has a shipping_flatrate
+            # IF one item has a shipping_flatrate
             new ClosureExpression(
                 function($data) {
                     foreach($data['cart']['items'] as $item) {
