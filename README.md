@@ -1,16 +1,13 @@
 # Rule Engine
-An engine to rule them all... 
-
-## What is it good for?
 This Rule Engine provides all kinds of expressions that can be combined to form rules
-which will then be applied to given data.
-Hence, the API of this Rule Engine is as follows
+which will then be applied to a given set of data.
+Hence, the API of this Rule Engine is as follows:
 ```php
 $evaluator->evaluate(ExpressionInterface $rules, array $data);
 ```
 
-The rules implement any domain knowledge. Fore example, a stakeholder specifies 
-rules that need to be applied to calculate the shipping costs of a cart.
+The rules should be formed by a developer and will implement any domain knowledge. 
+For example, a stakeholder specifies rules that calculate the shipping costs of a cart.
 Moreover, they want to be able to change these specifications over time
 (today free-shipping of one product applies to all products in the cart,
 tomorrow only to one product).
@@ -18,12 +15,7 @@ tomorrow only to one product).
 ## Usage
 In the acceptance tests of this implementation, you can find examples for rules that 
 [calculate the total shipping costs for a cart]([ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80)
-or the shipping carrier.
-
-A stakeholder specifies rules that need to be applied to calculate the shipping costs of a cart.
-Moreover, they want to be able to change these specifications over time 
-(today free-shipping of one product applies to all products in the cart, 
-tomorrow only to one product).
+or the shipping carrier (todo).
 
 For example:
 1) The cart's total shipping cost is the sum of all contained product's shipping costs.
@@ -61,16 +53,18 @@ $data = ['cart' =>
             ]
         ];
 # input rule (pseudo code)        
-$rule = If (one product has shipping_flatrate) THEN (shipping_costs = 0) ELSE (shipping_costs = sum(all items shipping_costs)); 
+$rule = IF (one product has shipping_flatrate) 
+        THEN (shipping_costs = 0) 
+        ELSE (shipping_costs = sum(all items shipping_costs)); 
 
 # expected output
 $totalShippingCosts = 0.00;
 ```
 
 To calculate the shipping costs for the above cart array, we create a rule in 
-[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80). This rule applies all boolean
-and arithmetic operations required to resolve the above cart array to an integer/float 
-(the shipping costs).
+[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80). 
+This rule applies all boolean and arithmetic operations required to resolve the above 
+cart array to the shipping costs.
 
     # Rule Engine:
     # <, > , = , <= , >=, contains, not expression (will negate anything that it gets)
