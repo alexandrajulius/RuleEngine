@@ -6,7 +6,8 @@ In this implementation, we calculate the total shipping costs for a cart that co
 
 A stakeholder specifies rules that need to be applied to calculate the shipping costs of a cart.
 Moreover, they want to be able to change these specifications over time 
-(today free-shipping of one product applies to all products in the cart, tomorrow only to one product).
+(today free-shipping of one product applies to all products in the cart, 
+tomorrow only to one product).
 
 For example:
 1) The cart's total shipping cost is the sum of all contained product's shipping costs.
@@ -45,9 +46,15 @@ $data = ['cart' =>
         ];
         
         
-# output
+# expected output
 $totalShippingCosts = 0.00;
 ```
+
+## Usage
+To calculate the shipping costs for the above cart array, we create a rule in 
+`ShippingCostsAcceptanceTest`. This rule applies all boolean
+and arithmetic operations required to resolve the above cart array to an integer/float 
+(the shipping costs).
 
     # Rule Engine:
     # <, > , = , <= , >=, contains, not expression (will negate anything that it gets)

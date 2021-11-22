@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 use Expression\ExpressionInterface;
 
+# this is actually an IfExpression
 final class Rule
 {
+    /*
     public ExpressionInterface $predicate;
 
     public ActionInterface $action;
@@ -15,4 +17,5 @@ final class Rule
         $this->predicate = $predicate;
         $this->action = $action;
     }
+    */
 }
