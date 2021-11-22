@@ -63,7 +63,7 @@ $totalShippingCosts = 0.00;
 ```
 
 To calculate the shipping costs for the above cart array, we create a rule in 
-[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80). 
+[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L77). 
 This rule applies all boolean and arithmetic operations required to resolve the above 
 cart array to the shipping costs.
 
