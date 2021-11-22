@@ -1,5 +1,6 @@
 # Rule Engine
-This Rule Engine provides all kinds of expressions that can be combined to form rules
+This Rule Engine provides all kinds of [expressions](https://github.com/alexandrajulius/RuleEngine/tree/main/src/Expression) 
+that can be combined to form rules
 which will then be applied to a given set of data.
 Hence, the API of this Rule Engine is as follows:
 ```php
@@ -53,7 +54,7 @@ $data = ['cart' =>
             ]
         ];
 # input rule (pseudo code)        
-$rule = IF (one product has shipping_flatrate) 
+$rule = IF (one product has shipping_flatrate)
         THEN (shipping_costs = 0) 
         ELSE (shipping_costs = sum(all items shipping_costs)); 
 
