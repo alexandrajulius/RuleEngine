@@ -13,11 +13,11 @@ use Evaluator\ClosureEvaluator;
 use Evaluator\PropertyEvaluator;
 use Evaluator\SumEvaluator;
 
-final class EvaluatorFactory
+final class EngineFactory
 {
-    public function createExpressionEvaluator(): ExpressionEvaluator
+    public function createEngine(): Engine
     {
-        return new ExpressionEvaluator(
+        return new Engine(
             $this->createEvaluatorStack()
         );
     }

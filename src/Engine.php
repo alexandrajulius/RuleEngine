@@ -2,30 +2,30 @@
 
 declare(strict_types = 1);
 
+use Evaluator\EvaluatorInterface;
+use Expression\ExpressionInterface;
 
 final class Engine
 {
-    public array $rules;
+    //it's a stack of services, not data, so private
+    /**
+     * @var EvaluatorInterface[]
+     */
+    private array $evaluators;
 
-    private ExpressionEvaluator $evaluator;
-
-    public function __construct(
-        array $rules,
-        ExpressionEvaluator $evaluator
-    )
+    public function __construct(array $evaluators)
     {
-        $this->rules = $rules;
-        $this->evaluator = $evaluator;
+        $this->evaluators = $evaluators;
     }
 
-    public function apply(array $data)
+    public function evaluate(ExpressionInterface $expression, array $data)
     {
-        foreach ($this->rules as $rule) {
-            if ($this->evaluator->evaluate($rule->expression, $data)) {
-                return $rule->action->do($data);
+        foreach ($this->evaluators as $evaluator) {
+            if ($evaluator->supports($expression)) {
+                return $evaluator->evaluate($this, $expression, $data);
             }
         }
 
-        throw new Exception('No action determined for any of the given rules.');
+        throw new Exception(sprintf('No evaluator found for expression "%s": ', get_class($expression)));
     }
 }

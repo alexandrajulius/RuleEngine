@@ -4,10 +4,10 @@ declare(strict_types = 1);
 
 namespace Tests;
 
-use EvaluatorFactory;
+use EngineFactory;
 use Expression\LogicalExpression;
 use Expression\PropertyExpression;
-use ExpressionEvaluator;
+use Engine;
 use PHPUnit\Framework\TestCase;
 
 final class LogicalEvaluatorTest extends TestCase
@@ -41,9 +41,10 @@ final class LogicalEvaluatorTest extends TestCase
             '|',
             '[cart][items][product_id_2][shipping_flatrate]');
 
-        $evaluator = $this->getEvaluator();
-
-        self::assertEquals(true, $evaluator->evaluate($expression, $data));
+        self::assertEquals(
+            true,
+            $this->getEngine()->evaluate($expression, $data)
+        );
     }
 
     private function createLogicalExpression(string $left, string $operator, string $right): LogicalExpression
@@ -55,8 +56,8 @@ final class LogicalEvaluatorTest extends TestCase
         ));
     }
 
-    private function getEvaluator(): ExpressionEvaluator
+    private function getEngine(): Engine
     {
-        return (new EvaluatorFactory())->createExpressionEvaluator();
+        return (new EngineFactory())->createEngine();
     }
 }

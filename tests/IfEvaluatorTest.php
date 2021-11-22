@@ -4,11 +4,11 @@ declare(strict_types = 1);
 
 namespace Tests;
 
-use EvaluatorFactory;
+use EngineFactory;
 use Expression\BooleanExpression;
 use Expression\IfExpression;
 use Expression\IntegerExpression;
-use ExpressionEvaluator;
+use Engine;
 use phpDocumentor\Reflection\Types\Integer;
 use PHPUnit\Framework\TestCase;
 
@@ -16,22 +16,25 @@ final class IfEvaluatorTest extends TestCase
 {
     public function test_it_returns_result_if_true(): void
     {
-        $evaluator = $this->getEvaluator();
-        $expression = new IfExpression(new BooleanExpression(true), new IntegerExpression(1));
+        $expression = $this->createIfExpression(true, 1, null);
 
-        self::assertEquals(1, $evaluator->evaluate($expression, []));
+        self::assertEquals(1, $this->getEngine()->evaluate($expression, []));
     }
 
     public function test_it_returns_null_if_false(): void
     {
-        $evaluator = $this->getEvaluator();
-        $expression = new IfExpression(new BooleanExpression(false), new IntegerExpression(1));
+        $expression = $this->createIfExpression(false, 1, null);
 
-        self::assertEquals(null, $evaluator->evaluate($expression, []));
+        self::assertEquals(null, $this->getEngine()->evaluate($expression, []));
     }
 
-    private function getEvaluator(): ExpressionEvaluator
+    private function createIfExpression(bool $predicate, int $if, ?int $then): IfExpression
     {
-        return (new EvaluatorFactory())->createExpressionEvaluator();
+        return new IfExpression(new BooleanExpression($predicate), new IntegerExpression($if));
+    }
+
+    private function getEngine(): Engine
+    {
+        return (new EngineFactory())->createEngine();
     }
 }

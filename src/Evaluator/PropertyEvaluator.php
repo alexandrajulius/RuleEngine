@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 namespace Evaluator;
 
-use ExpressionEvaluator;
+use Engine;
 use Expression\ExpressionInterface;
 use Expression\PropertyExpression;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 final class PropertyEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof PropertyExpression);
 

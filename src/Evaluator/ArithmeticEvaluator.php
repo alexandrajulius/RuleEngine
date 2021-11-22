@@ -7,11 +7,11 @@ namespace Evaluator;
 use Exception;
 use Expression\ArithmeticExpression;
 use Expression\ExpressionInterface;
-use ExpressionEvaluator;
+use Engine;
 
 final class ArithmeticEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof ArithmeticExpression);
 

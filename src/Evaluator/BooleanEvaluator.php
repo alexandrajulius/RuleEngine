@@ -7,12 +7,12 @@ namespace Evaluator;
 use Expression\BooleanExpression;
 use Expression\ExpressionInterface;
 use Expression\IntegerExpression;
-use ExpressionEvaluator;
+use Engine;
 
 #scalar value
 final class BooleanEvaluator {
 
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof BooleanExpression);
 

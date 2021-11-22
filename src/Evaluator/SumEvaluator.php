@@ -6,11 +6,11 @@ namespace Evaluator;
 
 use Expression\ExpressionInterface;
 use Expression\SumExpression;
-use ExpressionEvaluator;
+use Engine;
 
 final class SumEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof SumExpression);
 

@@ -6,13 +6,13 @@ namespace Evaluator;
 
 use Exception;
 use Expression\ComparisonExpression;
-use ExpressionEvaluator;
+use Engine;
 use Expression\ExpressionInterface;
 
 final class ComparisonEvaluator implements EvaluatorInterface
 {
     //anything that gets passed to here will be a comparison expression
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof ComparisonExpression);
 

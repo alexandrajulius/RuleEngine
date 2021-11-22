@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace Tests;
 
-use EvaluatorFactory;
+use EngineFactory;
 use Expression\ComparisonExpression;
-use ExpressionEvaluator;
+use Engine;
 use Expression\IntegerExpression;
 use Expression\PropertyExpression;
 use PHPUnit\Framework\TestCase;
@@ -27,9 +27,9 @@ final class ComparisonEvaluatorTest extends TestCase
             '<',
             10);
 
-        $evaluator = $this->getEvaluator();
-
-        self::assertFalse($evaluator->evaluate($expression, ['cart' => ['total' => 50]]));
+        self::assertFalse(
+            $this->getEngine()->evaluate($expression, ['cart' => ['total' => 50]])
+        );
     }
 
     public function test_it_evaluates_greater_than(): void
@@ -39,9 +39,9 @@ final class ComparisonEvaluatorTest extends TestCase
             '>',
             10);
 
-        $evaluator = $this->getEvaluator();
-
-        self::assertTrue($evaluator->evaluate($expression, ['cart' => ['total' => 50]]));
+        self::assertTrue(
+            $this->getEngine()->evaluate($expression, ['cart' => ['total' => 50]])
+        );
     }
 
     public function test_it_evaluates_equals(): void
@@ -51,9 +51,9 @@ final class ComparisonEvaluatorTest extends TestCase
                 '=',
                 50);
 
-        $evaluator = $this->getEvaluator();
-
-        self::assertTrue($evaluator->evaluate($expression, ['cart' => ['total' => 50]]));
+        self::assertTrue(
+            $this->getEngine()->evaluate($expression, ['cart' => ['total' => 50]])
+        );
     }
 
     private function createComparisonExpression(string $left, string $operator, int $right): ComparisonExpression
@@ -65,8 +65,8 @@ final class ComparisonEvaluatorTest extends TestCase
         ));
     }
 
-    private function getEvaluator(): ExpressionEvaluator
+    private function getEngine(): Engine
     {
-        return (new EvaluatorFactory())->createExpressionEvaluator();
+        return (new EngineFactory())->createEngine();
     }
 }

@@ -4,19 +4,35 @@ declare(strict_types = 1);
 
 namespace Tests;
 
-use EvaluatorFactory;
+use EngineFactory;
 use Expression\ClosureExpression;
 use Expression\IfExpression;
 use Expression\IntegerExpression;
 use Expression\SumExpression;
-use ExpressionEvaluator;
+use Engine;
 use PHPUnit\Framework\TestCase;
 
 final class ShippingCostsAcceptanceTest extends TestCase
 {
-    public function test_it_returns_zero_shipping_costs_if_one_item_has_flatrate(): void
+    public function test_it_calculates_shipping_costs_for_non_empty_cart_and_no_shipping_flatrate(): void
     {
-        $evaluator = $this->getEvaluator();
+        $data = ['cart' =>
+            ['items' => [
+                'product_id_1' => ['shipping_flatrate' => false, 'shipping_cost' => 0.00],
+                'product_id_2' => ['shipping_flatrate' => false, 'shipping_cost' => 20.00],
+                'product_id_3' => ['shipping_flatrate' => false, 'shipping_cost' => 10.00],
+            ]
+            ]
+        ];
+
+        self::assertEquals(
+            30,
+            $this->getEngine()->evaluate($this->createCompleteShippingCostsRule(), $data)
+        );
+    }
+
+    public function test_it_calculates_shipping_costs_for_non_empty_cart_and_shipping_flatrate_set(): void
+    {
         $data = ['cart' =>
             ['items' => [
                 'product_id_1' => ['shipping_flatrate' => true, 'shipping_cost' => 0.00],
@@ -26,52 +42,27 @@ final class ShippingCostsAcceptanceTest extends TestCase
             ]
         ];
 
-        self::assertEquals(0, $evaluator->evaluate($this->calculateShippingCostsRule(), $data));
+        self::assertEquals(
+            0,
+            $this->getEngine()->evaluate($this->createCompleteShippingCostsRule(), $data)
+        );
     }
 
-    public function test_it_returns_sum_of_all_items_shipping_costs(): void
+    public function test_it_returns_zero_shipping_costs_for_empty_cart(): void
     {
-        $evaluator = $this->getEvaluator();
-        $data = ['cart' =>
-            ['items' => [
-                'product_id_1' => ['shipping_flatrate' => false, 'shipping_cost' => 0.00],
-                'product_id_2' => ['shipping_flatrate' => false, 'shipping_cost' => 20.00],
-                'product_id_3' => ['shipping_flatrate' => false, 'shipping_cost' => 10.00],
-            ]
-            ]
-        ];
-
-        self::assertEquals(30, $evaluator->evaluate($this->calculateShippingCostsRule(), $data));
-    }
-
-    public function test_it_calculates_shipping_for_non_empty_cart(): void
-    {
-        $evaluator = $this->getEvaluator();
-        $data = ['cart' =>
-            ['items' => [
-                'product_id_1' => ['shipping_flatrate' => false, 'shipping_cost' => 0.00],
-                'product_id_2' => ['shipping_flatrate' => false, 'shipping_cost' => 20.00],
-                'product_id_3' => ['shipping_flatrate' => false, 'shipping_cost' => 10.00],
-            ]
-            ]
-        ];
-
-        self::assertEquals(30, $evaluator->evaluate($this->createCompleteShippingCostsRule(), $data));
-    }
-
-    public function test_it_returns_zero_empty_cart(): void
-    {
-        $evaluator = $this->getEvaluator();
         $data = ['cart' =>
             ['items' => []]
         ];
 
-        self::assertEquals(0, $evaluator->evaluate($this->createCompleteShippingCostsRule(), $data));
+        self::assertEquals(
+            0,
+            $this->getEngine()->evaluate($this->createCompleteShippingCostsRule(), $data)
+        );
     }
 
-    private function getEvaluator(): ExpressionEvaluator
+    private function getEngine(): Engine
     {
-        return (new EvaluatorFactory())->createExpressionEvaluator();
+        return (new EngineFactory())->createEngine();
     }
 
     private function createCompleteShippingCostsRule(): IfExpression

@@ -6,11 +6,11 @@ namespace Evaluator;
 
 use Expression\ClosureExpression;
 use Expression\ExpressionInterface;
-use ExpressionEvaluator;
+use Engine;
 
 final class ClosureEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof ClosureExpression);
 

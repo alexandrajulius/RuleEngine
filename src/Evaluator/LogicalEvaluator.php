@@ -7,11 +7,11 @@ namespace Evaluator;
 use Exception;
 use Expression\ExpressionInterface;
 use Expression\LogicalExpression;
-use ExpressionEvaluator;
+use Engine;
 
 final class LogicalEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof LogicalExpression);
 
@@ -23,7 +23,6 @@ final class LogicalEvaluator implements EvaluatorInterface
                 return $left || $right;
             case '&':
                 return $left && $right;
-           # what about "not"? it's a OneLiteralExpression
         }
 
         throw new Exception(sprintf('Unknown logical operator "%s".', $expression->logicalOperator));

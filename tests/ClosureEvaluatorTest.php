@@ -5,12 +5,9 @@ declare(strict_types = 1);
 namespace Tests;
 
 use Closure;
-use EvaluatorFactory;
-use Expression\ArithmeticExpression;
-use Expression\ListExpression;
+use EngineFactory;
 use Expression\ClosureExpression;
-use Expression\PropertyExpression;
-use ExpressionEvaluator;
+use Engine;
 use PHPUnit\Framework\TestCase;
 
 final class ClosureEvaluatorTest extends TestCase
@@ -49,9 +46,10 @@ final class ClosureEvaluatorTest extends TestCase
             }
         );
 
-        $evaluator = $this->getEvaluator();
-
-        self::assertEquals([0.00, 20.00, 10.00], $evaluator->evaluate($expression, $data));
+        self::assertEquals(
+            [0.00, 20.00, 10.00],
+            $this->getEngine()->evaluate($expression, $data)
+        );
     }
 
     private function createClosureEvaluator(Closure $closure): ClosureExpression
@@ -61,8 +59,8 @@ final class ClosureEvaluatorTest extends TestCase
         ));
     }
 
-    private function getEvaluator(): ExpressionEvaluator
+    private function getEngine(): Engine
     {
-        return (new EvaluatorFactory())->createExpressionEvaluator();
+        return (new EngineFactory())->createEngine();
     }
 }

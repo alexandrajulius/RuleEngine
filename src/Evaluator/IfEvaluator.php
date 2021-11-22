@@ -6,11 +6,11 @@ namespace Evaluator;
 
 use Expression\ExpressionInterface;
 use Expression\IfExpression;
-use ExpressionEvaluator;
+use Engine;
 
 final class IfEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof IfExpression);
 

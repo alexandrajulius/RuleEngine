@@ -7,11 +7,11 @@ namespace Evaluator;
 use Expression\ExpressionInterface;
 use Expression\IntegerExpression;
 use Expression\ListExpression;
-use ExpressionEvaluator;
+use Engine;
 
 final class ListEvaluator implements EvaluatorInterface
 {
-    public function evaluate(ExpressionEvaluator $evaluator, ExpressionInterface $expression, array $data)
+    public function evaluate(Engine $evaluator, ExpressionInterface $expression, array $data)
     {
         assert($expression instanceof ListExpression);
 

@@ -67,6 +67,8 @@ To calculate the shipping costs for the above cart array, we create a rule in
 This rule applies all boolean and arithmetic operations required to resolve the above 
 cart array to the shipping costs.
 
+    # Todo: calculate carrier, check for vouchers
+    # Todo: add to docs
     # Rule Engine:
     # <, > , = , <= , >=, contains, not expression (will negate anything that it gets)
     # &&, ||, XOR, LogicEvaluator, BooleanValue
