@@ -2,7 +2,23 @@
 An engine to rule them all... 
 
 ## What is it good for?
-In this implementation, we calculate the total shipping costs for a cart that contains products.
+This Rule Engine provides all kinds of expressions that can be combined to form rules
+which will then be applied to given data.
+Hence, the API of this Rule Engine is as follows
+```php
+$evaluator->evaluate(ExpressionInterface $rules, array $data);
+```
+
+The rules implement any domain knowledge. Fore example, a stakeholder specifies 
+rules that need to be applied to calculate the shipping costs of a cart.
+Moreover, they want to be able to change these specifications over time
+(today free-shipping of one product applies to all products in the cart,
+tomorrow only to one product).
+
+## Usage
+In the acceptance tests of this implementation, you can find examples for rules that 
+[calculate the total shipping costs for a cart]([ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80)
+or the shipping carrier.
 
 A stakeholder specifies rules that need to be applied to calculate the shipping costs of a cart.
 Moreover, they want to be able to change these specifications over time 
@@ -35,7 +51,7 @@ Scenario: Shipping Flatrate
 To specify the cart for the second scenario, 
 we use the following data structure as input for the rule engine:
 ```php
-# input
+# input cart data
 $data = ['cart' => 
             ['items' => [
                     'product_id_1' => ['shipping_flatrate' => true, 'shipping_cost' => 0.00],
@@ -44,15 +60,15 @@ $data = ['cart' =>
                 ]
             ]
         ];
-        
-        
+# input rule (pseudo code)        
+$rule = If (one product has shipping_flatrate) THEN (shipping_costs = 0) ELSE (shipping_costs = sum(all items shipping_costs)); 
+
 # expected output
 $totalShippingCosts = 0.00;
 ```
 
-## Usage
 To calculate the shipping costs for the above cart array, we create a rule in 
-`ShippingCostsAcceptanceTest`. This rule applies all boolean
+[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80). This rule applies all boolean
 and arithmetic operations required to resolve the above cart array to an integer/float 
 (the shipping costs).
 
