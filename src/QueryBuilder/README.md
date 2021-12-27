@@ -1,5 +1,5 @@
 # Query Builder
-This Query Builder provides all kinds of [expressions](https://github.com/alexandrajulius/QueryBuilder/tree/main/src/Expression)
+This Query Builder provides all kinds of [expressions](https://github.com/alexandrajulius/RuleEngine/tree/main/src/QueryBuilder/Expression)
 that can be combined to form rules
 which will then be applied to a given set of data.
 Hence, the API of expects rules and data:
@@ -15,7 +15,7 @@ tomorrow only to one product).
 
 ## Usage
 In the acceptance tests of this implementation, you can find examples for rules that
-[calculate the total shipping costs for a cart](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80)
+[calculate the total shipping costs for a cart](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/QueryBuilder/Acceptance/ShippingCostsTest.php#L80)
 or the shipping carrier (todo).
 
 For example:
@@ -63,7 +63,7 @@ $totalShippingCosts = 0.00;
 ```
 
 To calculate the shipping costs for the above cart array, we create a rule in
-[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/ShippingCostsAcceptanceTest.php#L80).
+[ShippingCostsAcceptanceTest.php](https://github.com/alexandrajulius/RuleEngine/blob/main/tests/QueryBuilder/Acceptance/ShippingCostsTest.php#L80).
 This rule applies all boolean and arithmetic operations required to resolve the above
 cart array to the shipping costs.
 
